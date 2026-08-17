@@ -108,6 +108,10 @@ func HasSequential(runes []rune) bool {
 	// 同时追踪当前递增与递减游程长度；任一达到阈值即命中。
 	ascLen, descLen := 1, 1
 	for i := 1; i < len(runes); i++ {
+		if runes[i] > 127 || runes[i-1] > 127 {
+			ascLen, descLen = 1, 1
+			continue
+		}
 		d := runes[i] - runes[i-1]
 		if d == 1 {
 			ascLen++
